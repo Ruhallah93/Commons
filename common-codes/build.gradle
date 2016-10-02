@@ -1,0 +1,72 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: "com.github.dcendents.android-maven"
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:24.2.1'
+}
+
+group = 'com.ahmadian.ruhallah.commons'
+version = '1.0'
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavaDocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath()
+            .join(File.pathSeparator))
+}
+
+task generateJavaDocsJar(type: Jar) {
+    from generateJavaDocs.destinationDir
+    classifier 'javadoc'
+}
+generateJavaDocsJar.dependsOn generateJavaDocs
+
+bintray {
+    user = 'ruhallah'
+    key = '169ad9416569b08ce2c34346375c7253f00bafd7'
+    pkg {
+        repo = 'rahmadian'
+        name = 'com.ahmadian.ruhallah.commons'
+
+        version {
+            name = '1.0.0-tuts'
+            desc = 'first upload'
+            released  = new Date()
+            vcsTag = '1.0.0'
+        }
+
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/Ruhallah93/Commons.git'
+        websiteUrl = 'https://github.com/Ruhallah93/Commons'
+    }
+    configurations = ['archives']
+}
+
+artifacts {
+    archives generateJavaDocsJar
+    archives generateSourcesJar
+}
