@@ -31,7 +31,4 @@ public class CommonsConfiguration {
         return typefaces.get(fontName);
     }
 
-    public static Typeface getTypeface() {
-        return typefaces.valueAt(0);
-    }
 }
