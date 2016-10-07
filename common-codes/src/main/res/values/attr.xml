@@ -5,4 +5,11 @@
         <attr name="highlight_key" format="string" />
         <attr name="highlight_color" format="color" />
     </declare-styleable>
+    <declare-styleable name="SmartSpinner">
+        <attr name="font" format="reference" />
+        <attr name="entries" format="reference" />
+        <attr name="textColor" format="reference" />
+        <attr name="backgroundColor" format="reference" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
 </resources>
