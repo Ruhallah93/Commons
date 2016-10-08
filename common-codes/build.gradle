@@ -8,9 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.1"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 3
+        versionName "1.2"
     }
     buildTypes {
         release {
@@ -26,7 +25,7 @@ dependencies {
 }
 
 group = 'com.ahmadian.ruhallah.commons'
-version = '1.1'
+version = '1.2'
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -53,10 +52,10 @@ bintray {
         name = 'com.ahmadian.ruhallah.commons'
 
         version {
-            name = '1.1'
-            desc = 'add smart widgets'
+            name = '1.2'
+            desc = 'repair attr'
             released  = new Date()
-            vcsTag = '1.1'
+            vcsTag = '1.2'
         }
 
         licenses = ['GPL-3.0']
