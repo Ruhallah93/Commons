@@ -9,7 +9,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -26,7 +26,7 @@ dependencies {
 }
 
 group = 'com.ahmadian.ruhallah.commons'
-version = '1.0'
+version = '1.1'
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -53,13 +53,13 @@ bintray {
         name = 'com.ahmadian.ruhallah.commons'
 
         version {
-            name = '1.0.0-tuts'
-            desc = 'first upload'
+            name = '1.1'
+            desc = 'add smart widgets'
             released  = new Date()
-            vcsTag = '1.0.0'
+            vcsTag = '1.1'
         }
 
-        licenses = ['Apache-2.0']
+        licenses = ['GPL-3.0']
         vcsUrl = 'https://github.com/Ruhallah93/Commons.git'
         websiteUrl = 'https://github.com/Ruhallah93/Commons'
     }
