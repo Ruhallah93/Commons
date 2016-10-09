@@ -18,7 +18,7 @@ import com.ahmadian.ruhallah.commons.utils.text.TextUtils;
 
 public class SmartTextView extends TextView {
 
-    private int font;
+    private String font;
     private String highlightKey;
     private int highlightColor;
 
@@ -38,9 +38,9 @@ public class SmartTextView extends TextView {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(defStyleAttr, R.styleable.SmartTextView);
 
         try {
-            font = typedArray.getResourceId(R.styleable.SmartTextView_font, 0);
-            highlightKey = typedArray.getString(R.styleable.SmartTextView_highlight_key);
-            highlightColor = typedArray.getResourceId(R.styleable.SmartTextView_highlight_color, Color.YELLOW);
+            font = typedArray.getString(R.styleable.SmartTextView_smart_font);
+            highlightKey = typedArray.getString(R.styleable.SmartTextView_smart_highlight_key);
+            highlightColor = typedArray.getColor(R.styleable.SmartTextView_smart_highlight_color, Color.YELLOW);
         }finally {
             typedArray.recycle();
         }
@@ -52,7 +52,7 @@ public class SmartTextView extends TextView {
         if (isInEditMode())
             return;
 
-        this.setTypeface(CommonsConfiguration.getTypeface(font));
+        this.setTypeface(CommonsConfiguration.getInstance().getTypeface(font));
     }
 
     protected void highlight() {
@@ -60,11 +60,11 @@ public class SmartTextView extends TextView {
         highlightedSpan = TextUtils.find(getText(), highlightKey, highlightColor);
     }
 
-    public int getFont() {
+    public String getFont() {
         return font;
     }
 
-    public void setFont(int font) {
+    public void setFont(String font) {
         this.font = font;
     }
 

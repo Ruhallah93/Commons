@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="smart_font" format="reference" />
+    <attr name="smart_font" format="string" />
     <attr name="smart_highlight_key" format="string" />
     <attr name="smart_highlight_color" format="color" />
     <attr name="smart_entries" format="reference" />
-    <attr name="smart_textColor" format="reference" />
-    <attr name="smart_backgroundColor" format="reference" />
+    <attr name="smart_textColor" format="color" />
+    <attr name="smart_backgroundColor" format="color" />
     <attr name="smart_textSize" format="dimension" />
     <declare-styleable name="SmartTextView">
         <attr name="smart_font" />

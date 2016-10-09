@@ -22,7 +22,7 @@ import com.ahmadian.ruhallah.commons.application.CommonsConfiguration;
 
 public class SmartSpinner extends Spinner{
 
-    private int font;
+    private String font;
     private int entries;
     private int textColor;
     private float textSize;
@@ -44,11 +44,11 @@ public class SmartSpinner extends Spinner{
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(defStyleAttr, R.styleable.SmartSpinner);
 
         try {
-            font = typedArray.getResourceId(R.styleable.SmartSpinner_font, 0);
-            entries = typedArray.getResourceId(R.styleable.SmartSpinner_entries, 0);
-            textColor = typedArray.getResourceId(R.styleable.SmartSpinner_textColor, Color.BLACK);
-            textSize = typedArray.getDimension(R.styleable.SmartSpinner_textSize, 0.f);
-            backgroundTextColor = typedArray.getResourceId(R.styleable.SmartSpinner_backgroundColor, Color.WHITE);
+            font = typedArray.getString(R.styleable.SmartSpinner_smart_font);
+            entries = typedArray.getResourceId(R.styleable.SmartSpinner_smart_entries, 0);
+            textColor = typedArray.getColor(R.styleable.SmartSpinner_smart_textColor, Color.BLACK);
+            textSize = typedArray.getDimension(R.styleable.SmartSpinner_smart_textSize, 0.f);
+            backgroundTextColor = typedArray.getColor(R.styleable.SmartSpinner_smart_backgroundColor, Color.WHITE);
         }finally {
             typedArray.recycle();
         }
@@ -95,7 +95,7 @@ public class SmartSpinner extends Spinner{
             view.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             view.setBackgroundColor(backgroundTextColor);
             view.setPadding(5, 5, 5, 5);
-            view.setTypeface(CommonsConfiguration.getTypeface(font));
+            view.setTypeface(CommonsConfiguration.getInstance().getTypeface(font));
             return view;
         }
 
@@ -108,7 +108,7 @@ public class SmartSpinner extends Spinner{
             view.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             view.setBackgroundColor(backgroundTextColor);
             view.setPadding(5, 5, 5, 5);
-            view.setTypeface(CommonsConfiguration.getTypeface(font));
+            view.setTypeface(CommonsConfiguration.getInstance().getTypeface(font));
             return view;
         }
     }
@@ -132,7 +132,7 @@ public class SmartSpinner extends Spinner{
             view.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             view.setBackgroundColor(backgroundTextColor);
             view.setPadding(5, 5, 5, 5);
-            view.setTypeface(CommonsConfiguration.getTypeface(font));
+            view.setTypeface(CommonsConfiguration.getInstance().getTypeface(font));
             return view;
         }
 
@@ -145,7 +145,7 @@ public class SmartSpinner extends Spinner{
             view.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             view.setBackgroundColor(backgroundTextColor);
             view.setPadding(5, 5, 5, 5);
-            view.setTypeface(CommonsConfiguration.getTypeface(font));
+            view.setTypeface(CommonsConfiguration.getInstance().getTypeface(font));
             return view;
         }
     }
