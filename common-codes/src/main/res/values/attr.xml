@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="smart_font" format="string" />
+    <attr name="smart_font" format="string"/>
     <attr name="smart_highlight_key" format="string" />
     <attr name="smart_highlight_color" format="color" />
     <attr name="smart_entries" format="reference" />

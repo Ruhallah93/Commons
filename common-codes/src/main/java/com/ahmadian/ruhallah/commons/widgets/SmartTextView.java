@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.ahmadian.ruhallah.commons.R;
 import com.ahmadian.ruhallah.commons.application.CommonsConfiguration;
 import com.ahmadian.ruhallah.commons.utils.text.TextUtils;
+import com.ahmadian.ruhallah.commons.utils.text.Typefaces;
 
 /**
  * Created by ruhallah-PC on 10/3/2016.
@@ -52,7 +53,7 @@ public class SmartTextView extends TextView {
         if (isInEditMode())
             return;
 
-        this.setTypeface(CommonsConfiguration.getInstance().getTypeface(font));
+        this.setTypeface(Typefaces.get(getContext(), font));
     }
 
     protected void highlight() {

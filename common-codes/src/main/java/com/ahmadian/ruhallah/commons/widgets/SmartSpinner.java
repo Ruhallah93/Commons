@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.ahmadian.ruhallah.commons.R;
 import com.ahmadian.ruhallah.commons.application.CommonsConfiguration;
+import com.ahmadian.ruhallah.commons.utils.text.Typefaces;
 
 /**
  * Created by ruhallah-PC on 10/7/2016.
@@ -95,7 +96,7 @@ public class SmartSpinner extends Spinner{
             view.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             view.setBackgroundColor(backgroundTextColor);
             view.setPadding(5, 5, 5, 5);
-            view.setTypeface(CommonsConfiguration.getInstance().getTypeface(font));
+            view.setTypeface(Typefaces.get(getContext(), font));
             return view;
         }
 
@@ -108,7 +109,7 @@ public class SmartSpinner extends Spinner{
             view.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             view.setBackgroundColor(backgroundTextColor);
             view.setPadding(5, 5, 5, 5);
-            view.setTypeface(CommonsConfiguration.getInstance().getTypeface(font));
+            view.setTypeface(Typefaces.get(getContext(), font));
             return view;
         }
     }
@@ -132,7 +133,7 @@ public class SmartSpinner extends Spinner{
             view.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             view.setBackgroundColor(backgroundTextColor);
             view.setPadding(5, 5, 5, 5);
-            view.setTypeface(CommonsConfiguration.getInstance().getTypeface(font));
+            view.setTypeface(Typefaces.get(getContext(), font));
             return view;
         }
 
@@ -145,12 +146,12 @@ public class SmartSpinner extends Spinner{
             view.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             view.setBackgroundColor(backgroundTextColor);
             view.setPadding(5, 5, 5, 5);
-            view.setTypeface(CommonsConfiguration.getInstance().getTypeface(font));
+            view.setTypeface(Typefaces.get(getContext(), font));
             return view;
         }
     }
 
-    public class StringWithTag {
+    public static class StringWithTag {
         public String string;
         public Object tag;
 
