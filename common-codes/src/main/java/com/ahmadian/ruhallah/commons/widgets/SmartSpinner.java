@@ -36,20 +36,19 @@ public class SmartSpinner extends Spinner{
 
     public SmartSpinner(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-        init();
     }
 
     public SmartSpinner(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray typedArray = context.getTheme().obtainStyledAttributes(defStyleAttr, R.styleable.SmartSpinner);
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SmartSpinner,0 ,0);
 
         try {
             font = typedArray.getString(R.styleable.SmartSpinner_smart_font);
             entries = typedArray.getResourceId(R.styleable.SmartSpinner_smart_entries, 0);
             textColor = typedArray.getColor(R.styleable.SmartSpinner_smart_textColor, Color.BLACK);
-            textSize = typedArray.getDimension(R.styleable.SmartSpinner_smart_textSize, 0.f);
-            backgroundTextColor = typedArray.getColor(R.styleable.SmartSpinner_smart_backgroundColor, Color.WHITE);
+            textSize = typedArray.getDimension(R.styleable.SmartSpinner_smart_textSize, getResources().getDimension(R.dimen.smart_default_text_size));
+            backgroundTextColor = typedArray.getColor(R.styleable.SmartSpinner_smart_backgroundColor, Color.TRANSPARENT);
         }finally {
             typedArray.recycle();
         }

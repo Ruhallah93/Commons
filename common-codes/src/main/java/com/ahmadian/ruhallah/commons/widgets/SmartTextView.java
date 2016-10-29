@@ -30,13 +30,12 @@ public class SmartTextView extends TextView {
 
     public SmartTextView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-        init();
     }
 
     public SmartTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray typedArray = context.getTheme().obtainStyledAttributes(defStyleAttr, R.styleable.SmartTextView);
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SmartTextView,0 ,0);
 
         try {
             font = typedArray.getString(R.styleable.SmartTextView_smart_font);
