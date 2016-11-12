@@ -22,12 +22,22 @@ import com.ahmadian.ruhallah.commons.widgets.SmartTextView;
 public class SmartSimpleDialog {
 
     private static Typeface typeface;
+    private static Integer color;
+
+    public SmartSimpleDialog() {
+    }
 
     public SmartSimpleDialog(Typeface typeface) {
         this.typeface = typeface;
     }
 
-    public SmartSimpleDialog() {
+    public SmartSimpleDialog(int color) {
+        this.color = color;
+    }
+
+    public SmartSimpleDialog(Typeface typeface, int color) {
+        this.typeface = typeface;
+        this.color = color;
     }
 
     public static AlertDialog createConfirmDialog(Context context,
@@ -63,7 +73,10 @@ public class SmartSimpleDialog {
             titleView.setText(title);
             titleView.setPadding(10,10,10,10);
             titleView.setGravity(Gravity.CENTER);
-            titleView.setBackgroundColor(context.getResources().getColor(R.color.grey_900));
+            if (color == null)
+                titleView.setBackgroundColor(context.getResources().getColor(R.color.grey_900));
+            else
+                titleView.setBackgroundColor(color);
             builder.setCustomTitle(titleView);
         }
     }
