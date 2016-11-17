@@ -22,6 +22,8 @@ public class Typefaces {
                     Typeface t = Typeface.createFromAsset(context.getAssets(), String.format("%s", preAddress + name));
                     cache.put(name, t);
                     return cache.get(name);
+                }else {
+                    return cache.get(name);
                 }
             }
         }
