@@ -29,10 +29,10 @@ public class SmartEditText extends EditText {
     public SmartEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SmartButton,0 ,0);
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SmartEditText,0 ,0);
 
         try {
-            font = typedArray.getString(R.styleable.SmartButton_smart_font);
+            font = typedArray.getString(R.styleable.SmartEditText_smart_font);
         }finally {
             typedArray.recycle();
         }
