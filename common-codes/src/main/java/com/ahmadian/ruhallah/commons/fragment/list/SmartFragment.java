@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ahmadian.ruhallah.commons.R;
-import com.ahmadian.ruhallah.commons.widgets.LoadingMaster;
+import com.ahmadian.ruhallah.commons.widgets.SmartLoadingView;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
@@ -35,7 +35,7 @@ public abstract class SmartFragment<T> extends Fragment {
     public static final int ITEM_PER_PAGE = 20;
     public static final int START_PAGE = 1;
 
-    protected LoadingMaster loadingView;
+    protected SmartLoadingView loadingView;
     protected List<T> list = new ArrayList<>(0);
     protected SmartAdapter<T> adapter;
     protected boolean reachedEnd = false;
@@ -56,9 +56,9 @@ public abstract class SmartFragment<T> extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        loadingView = new LoadingMaster(getActivity());
+        loadingView = new SmartLoadingView(getActivity());
         loadingView.setContentView(R.layout.fragment_base);
-        loadingView.setOnRetryListener(new LoadingMaster.OnRetryListener() {
+        loadingView.setOnRetryListener(new SmartLoadingView.OnRetryListener() {
             @Override
             public void onRetry() {
                 reachedEnd = false;
@@ -167,7 +167,7 @@ public abstract class SmartFragment<T> extends Fragment {
         appBarLayout.addView(headerView, 0);
     }
 
-    protected LoadingMaster getLoadingView() {
+    protected SmartLoadingView getLoadingView() {
         return loadingView;
     }
 

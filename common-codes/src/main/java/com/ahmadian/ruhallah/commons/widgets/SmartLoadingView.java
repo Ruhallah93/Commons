@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.ahmadian.ruhallah.commons.R;
 
-public class LoadingMaster extends FrameLayout implements View.OnClickListener {
+public class SmartLoadingView extends FrameLayout implements View.OnClickListener {
 
     private Context mContext = null;
 
@@ -29,15 +29,15 @@ public class LoadingMaster extends FrameLayout implements View.OnClickListener {
 
     private String mTranslucentColor = "#bbffffff";
 
-    public LoadingMaster(Context context) {
+    public SmartLoadingView(Context context) {
         this(context, null);
     }
 
-    public LoadingMaster(Context context, AttributeSet attrs) {
+    public SmartLoadingView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LoadingMaster(Context context, AttributeSet attrs, int defStyle) {
+    public SmartLoadingView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
         View.inflate(mContext, R.layout.layout_loading_master, this);
@@ -62,8 +62,8 @@ public class LoadingMaster extends FrameLayout implements View.OnClickListener {
         TextView txtLoading = (TextView) findViewById(R.id.loadingMessage);
         TextView txtFailed = (TextView) findViewById(R.id.failedMessage);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoadingMaster, defStyle, 0);
-        int colorsId = a.getResourceId(R.styleable.LoadingMaster_circular_progress_colors, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SmartLoadingView, defStyle, 0);
+        int colorsId = a.getResourceId(R.styleable.SmartLoadingView_circular_progress_colors, 0);
         if(colorsId != 0) {
             int[] colors = getResources().getIntArray(colorsId);
             circularProgressBar.setColors(colors);
