@@ -25,4 +25,7 @@
     <declare-styleable name="SmartEditText">
         <attr name="smart_font" />
     </declare-styleable>
+    <declare-styleable name="LoadingMaster">
+        <attr name="circular_progress_colors" format="reference" />
+    </declare-styleable>
 </resources>
