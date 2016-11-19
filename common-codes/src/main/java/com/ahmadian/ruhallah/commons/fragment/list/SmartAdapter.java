@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by hsiami on 19/11/2016.
  */
-public class SmartAdapter<T> extends RecyclerView.Adapter<SmartAdapter.ViewHolder>{
+public class SmartAdapter<T> extends RecyclerView.Adapter<SmartAdapter<T>.ViewHolder>{
     protected List<T> list;
     protected Context context;
     protected FactorySmartItemView factoryItemView;
@@ -29,6 +29,7 @@ public class SmartAdapter<T> extends RecyclerView.Adapter<SmartAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
         T item = list.get(position);
         holder.setItem(item);
     }
