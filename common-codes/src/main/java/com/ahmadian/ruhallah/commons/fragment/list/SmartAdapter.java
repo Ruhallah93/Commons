@@ -31,7 +31,7 @@ public class SmartAdapter<T> extends RecyclerView.Adapter<SmartAdapter<T>.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         T item = list.get(position);
-        holder.setItem(item);
+        holder.setItem(item, position);
     }
 
     @Override
@@ -56,10 +56,10 @@ public class SmartAdapter<T> extends RecyclerView.Adapter<SmartAdapter<T>.ViewHo
             itemView = (SmartItemView<T>) view;
         }
 
-        public void setItem(T item) {
+        public void setItem(T item, int position) {
             this.item = item;
             itemView.setSearchPhrase(searchPhrase);
-            itemView.setItem(item);
+            itemView.setItem(item, position);
         }
     }
 }

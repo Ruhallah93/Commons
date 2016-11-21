@@ -20,6 +20,7 @@ public class SmartItemView<T> extends FrameLayout implements View.OnClickListene
 
     protected T item;
     protected String searchPhrase = "";
+    protected int position;
 
     public String getSearchPhrase() {
         return searchPhrase;
@@ -37,8 +38,9 @@ public class SmartItemView<T> extends FrameLayout implements View.OnClickListene
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
-    public void setItem(T item) {
+    public void setItem(T item, int position) {
         this.item = item;
+        this.position = position;
     }
 
     public T getItem() {
@@ -52,7 +54,7 @@ public class SmartItemView<T> extends FrameLayout implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if(onItemClickListener != null) {
-            onItemClickListener.click(item);
+            onItemClickListener.click(item, v, position);
         }
     }
 
@@ -72,6 +74,6 @@ public class SmartItemView<T> extends FrameLayout implements View.OnClickListene
     }
 
     public interface OnItemClickListener<T> {
-        void click(T item);
+        void click(T item, View view, int position);
     }
 }
