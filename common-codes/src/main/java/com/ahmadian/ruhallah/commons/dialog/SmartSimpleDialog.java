@@ -47,7 +47,7 @@ public class SmartSimpleDialog {
                                                   String negativeStr,
                                                   DialogInterface.OnClickListener okListener,
                                                   DialogInterface.OnClickListener cancelListener) {
-        if (typeface != null)
+        if (typeface == null)
             typeface = Typefaces.get(context, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -82,10 +82,13 @@ public class SmartSimpleDialog {
     }
 
     private static void setStyle(AlertDialog dialog) {
+        Context context = dialog.getContext();
+
         TextView txtMessage = (TextView) dialog.findViewById(android.R.id.message);
 
         txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         txtMessage.setTypeface(typeface);
+        txtMessage.setTextColor(context.getResources().getColor(R.color.grey_900));
 
         //buttons
         Button btn1 = (Button) dialog.findViewById(android.R.id.button1);
@@ -95,14 +98,17 @@ public class SmartSimpleDialog {
         if (btn1 != null) {
             btn1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             btn1.setTypeface(typeface);
+            btn1.setTextColor(context.getResources().getColor(R.color.grey_900));
         }
         if (btn2 != null) {
             btn2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             btn2.setTypeface(typeface);
+            btn2.setTextColor(context.getResources().getColor(R.color.grey_900));
         }
         if (btn3 != null) {
             btn3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             btn3.setTypeface(typeface);
+            btn3.setTextColor(context.getResources().getColor(R.color.grey_900));
         }
     }
 }

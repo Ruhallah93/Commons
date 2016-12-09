@@ -151,8 +151,8 @@ public class SmartSpinner extends Spinner{
     }
 
     public static class StringWithTag {
-        public String string;
-        public Object tag;
+        private String string;
+        private Object tag;
 
         public StringWithTag(String stringPart, Object tagPart) {
             string = stringPart;
@@ -162,6 +162,18 @@ public class SmartSpinner extends Spinner{
         @Override
         public String toString() {
             return string;
+        }
+
+        public void setString(String string) {
+            this.string = string;
+        }
+
+        public Object getTag() {
+            return tag;
+        }
+
+        public void setTag(Object tag) {
+            this.tag = tag;
         }
     }
 }

@@ -40,7 +40,6 @@ public class SmartToolbar extends Toolbar {
         }else {
             SpannableString spannableString = new CustomSpannableStringConstructor(getContext())
                     .setText(title.toString())
-                    .setRelativeSize(0.8f)
                     .build();
             super.setTitle(spannableString);
         }
@@ -58,8 +57,6 @@ public class SmartToolbar extends Toolbar {
         }else {
             SpannableString spannableString = new CustomSpannableStringConstructor(getContext())
                     .setText(subtitle.toString())
-                    .setRelativeSize(0.8f)
-                    .setForegroundColor(getResources().getColor(android.R.color.tertiary_text_light))
                     .build();
             super.setSubtitle(spannableString);
         }

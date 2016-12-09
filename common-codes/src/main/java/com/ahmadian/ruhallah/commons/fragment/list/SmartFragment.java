@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ahmadian.ruhallah.commons.R;
+import com.ahmadian.ruhallah.commons.base.SmartAsyncTask;
 import com.ahmadian.ruhallah.commons.widgets.SmartLoadingView;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
@@ -40,10 +41,13 @@ public abstract class SmartFragment<T> extends Fragment {
     protected SmartAdapter<T> adapter;
     protected boolean reachedEnd = false;
     protected String searchPhrase = "";
-    private ListLoader loader;
+    private SmartAsyncTask<List<T>> loader;
     protected int columnCount = 1;
-    protected String tagName = "fragment base";
+    protected String tagName = "Smart List Fragment";
     protected View headerView;
+
+    protected enum Type {STATIC, DYNAMIC}
+    protected Type type = Type.DYNAMIC;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,8 +65,7 @@ public abstract class SmartFragment<T> extends Fragment {
         loadingView.setOnRetryListener(new SmartLoadingView.OnRetryListener() {
             @Override
             public void onRetry() {
-                reachedEnd = false;
-                new ListLoader(START_PAGE, ITEM_PER_PAGE, true).execute();
+                executeLoader();
             }
         });
 
@@ -70,27 +73,29 @@ public abstract class SmartFragment<T> extends Fragment {
         recyclerView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                reachedEnd = false;
-                new ListLoader(START_PAGE, ITEM_PER_PAGE, true).execute();
+                executeLoader();
             }
         });
 
         recyclerView.setRefreshingColorResources(R.color.amber_A700, R.color.blue_A400
                 , R.color.red_A400, R.color.light_blue_A400);
 
-        recyclerView.setupMoreListener(
-                new OnMoreListener() {
-                    @Override
-                    public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
-                        if (!reachedEnd) {
-                            recyclerView.getMoreProgressView().setVisibility(View.VISIBLE);
-                            new ListLoader((numberOfItems / numberBeforeMore) + 1, ITEM_PER_PAGE, false).execute();
-                        } else {
-                            recyclerView.hideMoreProgress();
+        if (type == Type.DYNAMIC)
+            recyclerView.setupMoreListener(
+                    new OnMoreListener() {
+                        @Override
+                        public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
+                            if (!reachedEnd) {
+                                recyclerView.getMoreProgressView().setVisibility(View.VISIBLE);
+                                cancelLoad();
+                                loader = new SmartAsyncTask<>(getDynamicCallback((numberOfItems / numberBeforeMore) + 1, ITEM_PER_PAGE, false));
+                                loader.execute();
+                            } else {
+                                recyclerView.hideMoreProgress();
+                            }
                         }
                     }
-                }
-                , ITEM_PER_PAGE);
+                    , ITEM_PER_PAGE);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), columnCount));
         recyclerView.getRecyclerView().setItemAnimator(new SlideInLeftAnimator());
@@ -98,7 +103,7 @@ public abstract class SmartFragment<T> extends Fragment {
         adapter.setSearchPhrase(searchPhrase);
         recyclerView.setAdapter(getAdapterAnimator());
 
-        return loadingView;
+         return loadingView;
     }
 
     @Override
@@ -111,6 +116,10 @@ public abstract class SmartFragment<T> extends Fragment {
     public void onDestroy() {
         cancelLoad();
         super.onDestroy();
+    }
+
+    protected void setType(Type type) {
+        this.type = type;
     }
 
     public void setColumnCount(int columnCount) {
@@ -136,9 +145,7 @@ public abstract class SmartFragment<T> extends Fragment {
     }
 
     protected void loadData() {
-        cancelLoad();
-        loader = new ListLoader(START_PAGE, ITEM_PER_PAGE, true);
-        loader.execute();
+        executeLoader();
     }
 
     private void cancelLoad() {
@@ -171,71 +178,94 @@ public abstract class SmartFragment<T> extends Fragment {
         return loadingView;
     }
 
-//    protected abstract int getFragmentLayoutId();
-
     protected abstract FactorySmartItemView getViewFactory();
+
     protected abstract List<T> fetchMoreDataAsync(int startPage, int count);
+
+    protected abstract List<T> fetchDataAsync();
+
     protected abstract void onOperationFailed();
 
-    protected void preExecute(boolean refresh) {
-        if (refresh) {
-            loadingView.loadingStart();
-        }
-        recyclerView.showMoreProgress();
-    }
-
-    protected void postExecute(List<T> response, boolean refresh) {
-        if (response == null) {
-            if (list.size() == 0) {
-                loadingView.loadingFailed(false);
-                onOperationFailed();
-            } else {
-                adapter.notifyDataSetChanged();
-                loadingView.loadingEnd();
+    protected SmartAsyncTask.BaseAsyncTaskCallback getDynamicCallback(final int startPage, final int count, final boolean refresh) {
+        return new SmartAsyncTask.BaseAsyncTaskCallback<List<T>>() {
+            @Override
+            public void onPreExecute() {
+                if (refresh) {
+                    loadingView.loadingStart();
+                    return;
+                }
+                recyclerView.showMoreProgress();
             }
-            reachedEnd = true;
-            return;
-        }
 
-        if (refresh) {
-            list.clear();
-        }
+            @Override
+            public void onPostExecute(List<T> response) {
+                if (response == null) {
+                    if (list.size() == 0) {
+                        loadingView.loadingFailed(false);
+                        onOperationFailed();
+                    } else {
+                        adapter.notifyDataSetChanged();
+                        loadingView.loadingEnd();
+                    }
+                    reachedEnd = true;
+                    return;
+                }
 
-        if (response.size() != ITEM_PER_PAGE) {
-            reachedEnd = true;
-        }
+                if (refresh) {
+                    list.clear();
+                }
 
-        list.addAll(response);
-        loadingView.loadingEnd();
-        adapter.notifyDataSetChanged();
+                if (response.size() != ITEM_PER_PAGE) {
+                    reachedEnd = true;
+                }
+
+                list.addAll(response);
+                loadingView.loadingEnd();
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public List<T> doInBackground() {
+                return fetchMoreDataAsync(startPage, count);
+            }
+        };
     }
 
-    private class ListLoader extends AsyncTask<Void, Void, List<T>> {
-        int count;
-        int startPage;
-        boolean refresh;
+    protected SmartAsyncTask.BaseAsyncTaskCallback<List<T>> getStaticCallback() {
+        return new SmartAsyncTask.BaseAsyncTaskCallback<List<T>>() {
+            @Override
+            public void onPreExecute() {
+                loadingView.loadingStart();
+            }
 
-        public ListLoader(int startPage, int count, boolean refresh) {
-            this.count = count;
-            this.startPage = startPage;
-            this.refresh = refresh;
-        }
+            @Override
+            public void onPostExecute(List<T> response) {
+                if (response == null) {
+                    loadingView.loadingFailed(false);
+                    onOperationFailed();
+                    return;
+                }
+                list.clear();
+                list.addAll(response);
+                loadingView.loadingEnd();
+                adapter.notifyDataSetChanged();
+            }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            preExecute(refresh);
-        }
+            @Override
+            public List<T> doInBackground() {
+                return fetchDataAsync();
+            }
+        };
+    }
 
-        @Override
-        protected List<T> doInBackground(Void... voids) {
-            return fetchMoreDataAsync(startPage, count);
+    protected void executeLoader() {
+        cancelLoad();
+        if (type == Type.STATIC) {
+            loader = new SmartAsyncTask<>(getStaticCallback());
+        }else if (type == Type.DYNAMIC) {
+            reachedEnd = false;
+            loader = new SmartAsyncTask<>(getDynamicCallback(START_PAGE, ITEM_PER_PAGE, true));
         }
-
-        @Override
-        protected void onPostExecute(List<T> response) {
-            super.onPostExecute(response);
-            postExecute(response, refresh);
-        }
+        loader.execute();
     }
 }
