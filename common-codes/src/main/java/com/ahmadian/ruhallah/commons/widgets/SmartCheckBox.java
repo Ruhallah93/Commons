@@ -3,7 +3,7 @@ package com.ahmadian.ruhallah.commons.widgets;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.widget.CheckedTextView;
+import android.widget.CheckBox;
 
 import com.ahmadian.ruhallah.commons.R;
 import com.ahmadian.ruhallah.commons.utils.text.Typefaces;
@@ -12,27 +12,26 @@ import com.ahmadian.ruhallah.commons.utils.text.Typefaces;
  * Created by ruhallah-PC on 12/12/2016.
  */
 
-public class SmartCheckedTextView extends CheckedTextView {
-
+public class SmartCheckBox extends CheckBox {
     private String font;
 
-    public SmartCheckedTextView(Context context) {
+    public SmartCheckBox(Context context) {
         super(context);
 
         init();
     }
 
-    public SmartCheckedTextView(Context context, AttributeSet attrs) {
+    public SmartCheckBox(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SmartCheckedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SmartCheckBox(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SmartCheckBox, 0, 0);
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SmartCheckedTextView, 0, 0);
 
         try {
-            font = typedArray.getString(R.styleable.SmartCheckBox_smart_font);
+            font = typedArray.getString(R.styleable.SmartCheckedTextView_smart_font);
         } finally {
             typedArray.recycle();
         }

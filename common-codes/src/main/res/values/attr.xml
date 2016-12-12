@@ -28,6 +28,9 @@
     <declare-styleable name="SmartCheckedTextView">
         <attr name="smart_font" />
     </declare-styleable>
+    <declare-styleable name="SmartCheckBox">
+        <attr name="smart_font" />
+    </declare-styleable>
     <declare-styleable name="SmartLoadingView">
         <attr name="circular_progress_colors" format="reference" />
     </declare-styleable>
