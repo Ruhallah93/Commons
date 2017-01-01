@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 3
-        versionName "1.2"
+        versionCode 1
+        versionName "1.39"
     }
     buildTypes {
         release {
@@ -22,10 +22,17 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.malinskiy:superrecyclerview:1.1.4'
+    compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.2.0'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.4'
 }
 
 group = 'com.ahmadian.ruhallah.commons'
-version = '1.2'
+version = '1.39'
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -52,10 +59,10 @@ bintray {
         name = 'com.ahmadian.ruhallah.commons'
 
         version {
-            name = '1.2'
-            desc = 'repair attr'
+            name = '1.39'
+            desc = 'change in module'
             released  = new Date()
-            vcsTag = '1.2'
+            vcsTag = '1.39'
         }
 
         licenses = ['GPL-3.0']

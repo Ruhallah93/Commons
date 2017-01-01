@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@color/amber_A700"
+    tools:context="com.ahmadian.ruhallah.MainActivity">
+
+    <com.ahmadian.ruhallah.commons.widgets.SmartTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:text="SmartTextView"/>
+
+    <com.ahmadian.ruhallah.commons.widgets.SmartSpinner
+        android:id="@+id/spinner"
+        style="@style/Widget.AppCompat.Spinner.DropDown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:smart_textColor="@color/red_A700"
+        app:smart_textSize="16sp"
+        app:smart_backgroundColor="@color/blue_grey_50"/>
+
+    <com.ahmadian.ruhallah.commons.widgets.SmartEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.EditText"/>
+
+</LinearLayout>
