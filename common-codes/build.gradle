@@ -29,6 +29,8 @@ dependencies {
     compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.2.0'
     compile 'jp.wasabeef:recyclerview-animators:2.2.4'
+
+    compile 'com.marshalchen.ultimaterecyclerview:library:0.7.0'
 }
 
 group = 'com.ahmadian.ruhallah.commons'
